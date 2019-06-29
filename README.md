@@ -1,2 +1,2 @@
 # xforge
-Like make, ... except if it was on steriods ;)
+Like make ... except if it was on steriods ;)
