@@ -1,0 +1,36 @@
+#!/usr/bin/env node
+/* 
+ * (C) 2018 TekMonks. All rights reserved.
+ * License: MIT - see enclosed LICENSE file.
+ */
+
+const args = require("commander");
+const fs = require("fs");
+const path = require("path");
+const colors = require("colors");
+
+global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
+
+main();
+async function main() {
+    args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
+    args.version("XForge v1.9.0");
+    args.option("-f, --file <path>", "required, full path to the build file");
+    args.option("-c, --colors", "produce colored output");
+    args.parse(process.argv);
+
+    if (args.colors) CONSTANTS.COLORED_OUT = true;
+
+    if (args.file) {
+        const fileToBuild = resolvePath(args.file);
+
+        CONSTANTS.LOGINFO(`Starting build: ${fileToBuild}`);
+        try { await require(fileToBuild).make(); CONSTANTS.EXITOK(); } 
+        catch (err) { CONSTANTS.HANDLE_BUILD_ERROR(err); }
+    } else {args.outputHelp(t=>colors.red(t)); process.exit(1);}
+}
+ 
+function resolvePath(file) {
+    if (fs.existsSync(file)) return path.resolve(file);
+    else return (path.resolve(`${__dirname}/${file}`));
+}
