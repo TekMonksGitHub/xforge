@@ -21,8 +21,8 @@ exports.os_cmd = async cmd => {
             if (stderr && error) CONSTANTS.LOGERROR(`[PID:${process.pid}] ${stderr}`);
             else if (stderr) CONSTANTS.LOGWARN(`[PID:${process.pid}] ${stderr}`);
 
-            if (error) reject(error);
-            else resolve(data);
+            if (error) setTimeout(_ => reject(error), CONSTANTS.PROCESS_QUIESCE_TIME);
+            else setTimeout(_ => resolve(data), CONSTANTS.PROCESS_QUIESCE_TIME);
         });
     }
 
