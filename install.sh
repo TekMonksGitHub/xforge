@@ -1,4 +1,3 @@
 #!/bin/sh
-npm install commander
-npm install shelljs
-npm install colors
+npm install shelljs -g
+npm install colors -g
