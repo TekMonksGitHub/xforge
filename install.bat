@@ -1,3 +1,4 @@
 @echo off
-npm install shelljs
-npm install colors
+npm install shelljs -g
+npm install colors -g
+npm install commander -g
