@@ -5,14 +5,15 @@
  * Runs OS commands
  */
 const {exec} = require("child_process");
-
-let currentActiveProcesses = 0;
+const {Ticketing} = require(`${CONSTANTS.LIBDIR}/Ticketing.js`);
+const ticketing = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
 
 exports.os_cmd = cmd => {
-    const osCmd = (resolve, reject) => {
-        currentActiveProcesses++;
-        const process = exec(cmd, (error, data, stderr) => {
-            currentActiveProcesses--;
+    CONSTANTS.LOGINFO(`[REQUEST]: ${cmd}`);
+
+    return new Promise((resolve, reject) => ticketing.getTicket(_=>{
+        exec(cmd, (error, data, stderr) => {
+            ticketing.releaseTicket();
             
             CONSTANTS.LOGEXEC(`[PID:${process.pid}] ${cmd}`);
 
@@ -23,11 +24,5 @@ exports.os_cmd = cmd => {
             if (error) reject(error);
             else resolve(data);
         });
-    }
-
-    return getOSTaskPromise(osCmd);
-}
-
-function getOSTaskPromise(osCmd) {
-    return new Promise(osCmd);
+    }));
 }
