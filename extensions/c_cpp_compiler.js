@@ -10,7 +10,7 @@
 const path = require("path");
 const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
 
- exports.c_cpp_compile = async (source_files, compiler_cmd, include_paths, output_directory, output_extension, isWindows) => {
+ exports.c_cpp_compile = (source_files, compiler_cmd, include_paths, output_directory, output_extension, isWindows) => {
     if (!output_extension) output_extension = ".o";
 
     const includeOption = isWindows ? "/I" : "-I";
