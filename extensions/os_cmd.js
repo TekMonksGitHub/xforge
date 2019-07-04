@@ -6,9 +6,12 @@
  */
 const {exec} = require("child_process");
 const {Ticketing} = require(`${CONSTANTS.LIBDIR}/Ticketing.js`);
-const ticketing = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
 
 exports.os_cmd = cmd => {
+    if (!CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"])
+        CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
+    const ticketing = CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"];
+
     CONSTANTS.LOGINFO(`[REQUEST]: ${cmd}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
