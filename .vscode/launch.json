@@ -8,7 +8,7 @@
             "type": "node",
             "request": "attach",
             "name": "Attach to XForge",
-            "address": "192.168.241.167",
+            "address": "192.168.241.177",
             "port": 9221,
             "localRoot": "${workspaceFolder}",
             "remoteRoot": "/home/stol/xforge"
