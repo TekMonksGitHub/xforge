@@ -38,7 +38,7 @@ const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
 
  exports.c_cpp_link = (linker_cmd, object_files, out, isWindows) => {
     const outOption = isWindows ? "/OUT:" : "-o"
-    const objFiles = object_files.join[" "];
+    const objFiles = object_files.join(" ");
 
     return os_cmd([linker_cmd, `${outOption}${out}`, objFiles].join(" "));
  }
