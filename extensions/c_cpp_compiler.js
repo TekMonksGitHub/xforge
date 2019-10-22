@@ -2,7 +2,7 @@
  * (C) 2018 TekMonks. All rights reserved.
  * License: MIT - see enclosed LICENSE file.
  * 
- * C/C++ Compile Class
+ * C/C++ Compile and Link Class
  * Compilers supported are 
  * Clang, GCC, Oracle CC, MSVC (Windows), Intel C/C++, IBM C/C++
  */
@@ -34,4 +34,11 @@ const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
     for (cmd of osCmds) promises.push(os_cmd(cmd));
 
     return Promise.all(promises);
+ }
+
+ exports.c_cpp_link = (linker_cmd, object_files, out, isWindows) => {
+    const outOption = isWindows ? "/OUT:" : "-o"
+    const objFiles = object_files.join[" "];
+
+    return os_cmd([linker_cmd, `${outOption}${out}`, objFiles].join(" "));
  }
