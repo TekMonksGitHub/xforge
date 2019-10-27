@@ -17,9 +17,12 @@ async function main() {
     args.version("XForge v1.9.0");
     args.option("-f, --file <path>", "required, full path to the build file");
     args.option("-c, --colors", "produce colored output");
+    args.option("-o, --other <otherArgs>", "other arguments", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     args.parse(process.argv);
 
     if (args.colors) CONSTANTS.COLORED_OUT = true;
+
+    if (args.other) CONSTANTS.OTHER_ARGS = args.other;
 
     if (args.file) {
         const fileToBuild = resolvePath(args.file);
