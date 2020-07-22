@@ -26,7 +26,7 @@ const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
         let output_file = path.basename(source_file);
         output_file = path.resolve(`${output_directory}/${output_file.substring(0, output_file.lastIndexOf("."))}${output_extension}`);
 
-        if (utils.isFileNewerThanSync(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue;}
+        if (utils.checkIncrementalSkip(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue; }
         
         const cmd = `${compiler_cmd} ${includeOptions} "${source_file}" ${outputOption}"${output_file}"`;
         osCmds.push(cmd);

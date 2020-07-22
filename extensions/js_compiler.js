@@ -19,7 +19,7 @@ const COMPILER_CMD = `${JAVA_EXE} -jar ${COMPILER_JAR} --compilation_level ADVAN
 
         const output_file = path.resolve(`${output_directory}/${path.basename(source_file)}`);
 
-        if (utils.isFileNewerThanSync(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue;}
+        if (utils.checkIncrementalSkip(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue; }
         
         const cmd = `${COMPILER_CMD} "${source_file}" "${output_file}"`;
         osCmds.push(cmd);
