@@ -10,6 +10,7 @@ const path = require("path");
 const colors = require("colors");
 
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
+global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
 
 main();
 async function main() {

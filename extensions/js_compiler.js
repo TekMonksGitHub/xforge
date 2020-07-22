@@ -9,7 +9,9 @@
 const path = require("path");
 const utils = require(`${CONSTANTS.LIBDIR}/utils.js`);
 const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
-const compiler_cmd = `java -jar ${CONSTANTS.LIBDIR}/3p/jscc.jar --compilation_level ADVANCED_OPTIMIZATIONS --js`;
+const JAVA_EXE = path.resolve(`${CONF.java_home}/bin/java.exe`);
+const COMPILER_JAR = path.resolve(`${CONSTANTS.LIBDIR}/3p/jscc.jar`);
+const COMPILER_CMD = `${JAVA_EXE} -jar ${COMPILER_JAR} --compilation_level ADVANCED_OPTIMIZATIONS --js`;
 
  exports.c_cpp_compile = (source_files, output_directory) => {
     const osCmds = []; for (const source_file of source_files) {
@@ -19,7 +21,7 @@ const compiler_cmd = `java -jar ${CONSTANTS.LIBDIR}/3p/jscc.jar --compilation_le
 
         if (utils.isFileNewerThanSync(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue;}
         
-        const cmd = `${compiler_cmd} "${source_file}" "${output_file}"`;
+        const cmd = `${COMPILER_CMD} "${source_file}" "${output_file}"`;
         osCmds.push(cmd);
     }
 
