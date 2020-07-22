@@ -7,6 +7,7 @@
  */
 
 const path = require("path");
+const utils = require(`${CONSTANTS.LIBDIR}/utils.js`);
 const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
 const compiler_cmd = `java -jar ${CONSTANTS.LIBDIR}/3p/jscc.jar --compilation_level ADVANCED_OPTIMIZATIONS --js`;
 
@@ -16,7 +17,7 @@ const compiler_cmd = `java -jar ${CONSTANTS.LIBDIR}/3p/jscc.jar --compilation_le
 
         const output_file = path.resolve(`${output_directory}/${path.basename(source_file)}`);
 
-        if (isFileNewerThan(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue;}
+        if (utils.isFileNewerThanSync(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue;}
         
         const cmd = `${compiler_cmd} "${source_file}" "${output_file}"`;
         osCmds.push(cmd);
