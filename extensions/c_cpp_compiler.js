@@ -20,7 +20,7 @@ const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
     let includeOptions = ""; 
     for (const include_path of include_paths) includeOptions += `${includeOption}"${include_path}" `;
 
-    const osCmds = []; for (const source_file of source_files) {
+    const osCmds = []; for (let source_file of source_files) {
         source_file = path.resolve(source_file);
 
         let output_file = path.basename(source_file);
