@@ -12,6 +12,8 @@ const colors = require("colors");
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
 global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
 
+const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total build time: ${Date.now() - timeStarted} milliseconds`); }
+
 main();
 async function main() {
     args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
@@ -40,5 +42,3 @@ function _resolvePath(file) {
     if (fs.existsSync(file)) return path.resolve(file);
     else return (path.resolve(`${__dirname}/${file}`));
 }
-
-const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total build time: ${Date.now() - timeStarted} milliseconds`); }
