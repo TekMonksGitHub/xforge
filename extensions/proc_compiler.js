@@ -23,7 +23,7 @@ const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
     const osCmds = []; for (let source_file of source_files) {
         source_file = path.resolve(source_file);
 
-        const output_file = path.basename(source_file);
+        let output_file = path.basename(source_file);
         output_file = path.resolve(`${output_directory}/${output_file.substring(0, output_file.lastIndexOf("."))}${output_extension}`);
 
         if (utils.checkIncrementalSkip(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); continue; }
