@@ -23,7 +23,7 @@ async function main() {
     args.option("-t, --time", "track build time");
     args.option("-i, --incremental <value>", "true for incremental and false to force a full build");
     args.option("-j, --javahome <java_home>", "java home directory");
-    args.option("-o, --other <otherArgs>", "other arguments", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
+    args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     args.parse(process.argv);
 
     if (args.colors) CONSTANTS.COLORED_OUT = true;
