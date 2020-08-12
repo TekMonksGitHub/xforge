@@ -25,7 +25,7 @@ exports.js_compile = async (source_file, output_file) => {
     if (utils.checkIncrementalSkip(output_file, source_file)) {CONSTANTS.LOGINFO(`${output_file} is newer than ${source_file}. Skipping.`); return;}
 
     const outDir = path.dirname(output_file); 
-    if (!await existsAsync(outDir)) mkdirAsync(ourDir, {recursive:true});
+    if (!await existsAsync(outDir)) mkdirAsync(outDir, {recursive:true});
     const cmd = `${COMPILER_CMD} "${source_file}" --js_output_file "${output_file}"`;
     return os_cmd(cmd);
 }

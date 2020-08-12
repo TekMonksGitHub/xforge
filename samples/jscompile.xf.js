@@ -1,7 +1,11 @@
 /*
  * XForge Build file for JS projects
  */
+const fs = require("fs");
 const path = require("path");
+const util = require("util");
+const mkdirAsync = util.promisify(fs.mkdir);
+const existsAsync = util.promisify(fs.exists);
 const {js_compile} = require(`${CONSTANTS.EXTDIR}/js_compiler.js`);
 
 // build
@@ -10,7 +14,8 @@ exports.make = async function(source,out) {
         // normalize paths
         source = path.resolve(source); out = path.resolve(out);
 
-		// copy source to out
+        // copy source to out
+        if (!await existsAsync(out)) mkdirAsync(out, {recursive:true});
         await CONSTANTS.SHELL.cp("-RLf", `${source}/*`, `${out}/`);
         
         // find JS files in out
