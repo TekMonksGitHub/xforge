@@ -22,7 +22,6 @@ async function main() {
     args.option("-c, --colors", "produce colored output");
     args.option("-t, --time", "track build time");
     args.option("-i, --incremental <value>", "true for incremental and false to force a full build");
-    args.option("-j, --javahome <java_home>", "java home directory");
     args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     args.parse(process.argv);
 
@@ -37,7 +36,7 @@ async function main() {
 
         const timeStarted = Date.now();
         CONSTANTS.LOGINFO(`Starting build: ${fileToBuild}`);
-        try { await require(fileToBuild).make(); _printBuildTime(timeStarted); CONSTANTS.EXITOK(); } 
+        try { await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); CONSTANTS.EXITOK(); } 
         catch (err) { _printBuildTime(timeStarted); CONSTANTS.HANDLE_BUILD_ERROR(err); }
     } else {args.outputHelp(t=>colors.red(t)); process.exit(1);}
 }
@@ -50,6 +49,4 @@ function _resolvePath(file) {
 function _overrideConfig() {
     if (args.incremental && args.incremental.toLowerCase() == "false") global.CONF.incremental_mode = false;
     if (args.incremental && args.incremental.toLowerCase() == "true") global.CONF.incremental_mode = true;
-
-    if (args.javahome) global.CONF.java_home = args.javahome;
 }
