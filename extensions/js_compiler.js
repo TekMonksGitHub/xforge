@@ -1,9 +1,11 @@
-/* 
+/**
  * (C) 2019 TekMonks. All rights reserved.
  * License: MIT - see enclosed LICENSE file.
  * 
  * JS Compiler. Compilers supported are:
  * Google Closure Compiler
+ * 
+ * Install Google Closure Compiler using npm -i google-closure-compiler -g
  */
 const fs = require("fs");
 const util = require("util");
