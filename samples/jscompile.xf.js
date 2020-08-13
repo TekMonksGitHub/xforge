@@ -9,7 +9,7 @@ const existsAsync = util.promisify(fs.exists);
 const {js_compile} = require(`${CONSTANTS.EXTDIR}/js_compiler.js`);
 
 // build
-exports.make = async function(source,out) {
+exports.make = async function(source, out, useTerser) {
 	try {
         // normalize paths
         source = path.resolve(source); out = path.resolve(out);
@@ -25,7 +25,7 @@ exports.make = async function(source,out) {
         // find all source files, setup the compilation promises 
         const promises = []; for (let jsFile of jsFiles) {
             jsFile = path.resolve(jsFile);
-            promises.push(_compileFile(jsFile));
+            promises.push(_compileFile(jsFile, useTerser?useTerser.toLowerCase()=='terser':false));
         }
 
 		// wait for completion
@@ -37,7 +37,7 @@ exports.make = async function(source,out) {
 	}
 }
 
-async function _compileFile(jsFile) {
-    await js_compile(jsFile, jsFile+".done");
+async function _compileFile(jsFile, useTerser) {
+    await js_compile(jsFile, jsFile+".done", useTerser);
     await CONSTANTS.SHELL.mv(jsFile+".done", jsFile);
 }
