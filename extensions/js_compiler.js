@@ -11,8 +11,8 @@ const util = require("util");
 const path = require("path");
 const mkdirAsync = util.promisify(fs.mkdir);
 const existsAsync = util.promisify(fs.exists);
-const COMPILER_CMD_GOOGLE = `google-closure-compiler --js`;
-const COMPILER_CMD_TERSER = `terser`;
+const COMPILER_CMD_GOOGLE = `npx google-closure-compiler --js`;
+const COMPILER_CMD_TERSER = `npx terser`;
 const utils = require(`${CONSTANTS.LIBDIR}/utils.js`);
 const {os_cmd} = require(`${CONSTANTS.EXTDIR}/os_cmd.js`);
 

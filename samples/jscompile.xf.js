@@ -15,7 +15,7 @@ exports.make = async function(source, out, useTerser) {
         source = path.resolve(source); out = path.resolve(out);
 
         // copy source to out
-        if (!await existsAsync(out)) mkdirAsync(out, {recursive:true});
+        if (!await existsAsync(out)) await mkdirAsync(out, {recursive:true});
         await CONSTANTS.SHELL.cp("-RLf", `${source}/*`, `${out}/`);
         
         // find JS files in out
