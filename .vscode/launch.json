@@ -18,7 +18,7 @@
             "request": "launch",
             "name": "Launch XForge",
             "program": "${workspaceFolder}/xforge",
-            "args": ["-f", "${workspaceFolder}/samples/jscompile.xf.js", "-o", "${workspaceFolder}/../reflection-tcp", "-o", "${workspaceFolder}/../test", "-j", "${workspaceFolder}/../jdk8"],
+            "args": ["-c","-f", "${workspaceFolder}/samples/remoteCmd.xf.js", "-o", "ip", "-o", "root", "-o", "password", "-o", "be:27:56:ec:df:b0:69:9d:1a:35:d0:9a:ed:37:51:9c", "-o", "${workspaceFolder}/samples/remoteCmd.sh", "-o", "~/"],
             "env": {
                 "NODE_PATH": "/Users/rvkapoor/Documents/code/node/lib/node_modules"
             }
