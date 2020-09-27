@@ -14,7 +14,7 @@ global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
 
 const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total build time: ${Date.now() - timeStarted} milliseconds`); }
 
-module.exports.main = async function(inprocessArgs) {
+module.exports.xforge = async function(inprocessArgs) {
     args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
     args.version("XForge v2.4.9");
     args.option("-f, --file <path>", "required, full path to the build file");
@@ -50,4 +50,4 @@ function _overrideConfig() {
     if (args.incremental && args.incremental.toLowerCase() == "true") global.CONF.incremental_mode = true;
 }
 
-if (require.main === module) module.exports.main();
+if (require.main === module) module.exports.xforge();
