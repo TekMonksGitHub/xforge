@@ -6,8 +6,8 @@
 
 const fs = require("fs");
 const path = require("path");
+let args = require("commander");
 const colors = require("colors");
-const args = require("commander");
 
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
 global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
@@ -22,7 +22,7 @@ module.exports.xforge = async function(inprocessArgs) {
     args.option("-t, --time", "track build time");
     args.option("-i, --incremental <value>", "true for incremental and false to force a full build");
     args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
-    args.parse(inprocessArgs||process.argv);
+    if (inprocessArgs) {args = inprocessArgs; args.outputHelp =_=>CONSTANTS.LOGERROR("Bad arguments to XForge");} else args.parse(process.argv);
 
     if (args.colors) CONSTANTS.COLORED_OUT = true;
 
@@ -35,9 +35,9 @@ module.exports.xforge = async function(inprocessArgs) {
 
         const timeStarted = Date.now();
         CONSTANTS.LOGINFO(`Starting build: ${fileToBuild}`);
-        try { await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); CONSTANTS.EXITOK(); } 
-        catch (err) { _printBuildTime(timeStarted); CONSTANTS.HANDLE_BUILD_ERROR(err); }
-    } else {args.outputHelp(t=>colors.red(t)); process.exit(1);}
+        try { await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); return CONSTANTS.EXITOK(); } 
+        catch (err) { _printBuildTime(timeStarted); return CONSTANTS.HANDLE_BUILD_ERROR(err); }
+    } else {args.outputHelp(t=>colors.red(t)); return CONSTANTS.EXITFAILED();}
 }
  
 function _resolvePath(file) {
@@ -50,4 +50,4 @@ function _overrideConfig() {
     if (args.incremental && args.incremental.toLowerCase() == "true") global.CONF.incremental_mode = true;
 }
 
-if (require.main === module) module.exports.xforge();
+if (require.main === module) module.exports.xforge(); else CONSTANTS.INPROCESSMODE = true;

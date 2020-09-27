@@ -24,7 +24,7 @@ exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams,
         CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
     const ticketing = CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"];
 
-    CONSTANTS.LOGINFO(`[SSH_CMD]: ${user}@${host} -> ${shellScriptPath} ${scriptParams.join(" ")}`);
+    CONSTANTS.LOGINFO(`[SSH_CMD]: ${user}@${host} -> ${scriptParams.join(" ")}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
         remote_ssh.runRemoteSSHScript({user, password, host, hostkey}, shellScriptPath, scriptParams, stream, (err,stdout,stderr) => {
