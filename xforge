@@ -4,10 +4,10 @@
  * License: MIT - see enclosed LICENSE file.
  */
 
-const args = require("commander");
 const fs = require("fs");
 const path = require("path");
 const colors = require("colors");
+const args = require("commander");
 
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
 global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
@@ -17,7 +17,7 @@ const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total
 main();
 async function main() {
     args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
-    args.version("XForge v2.1.0");
+    args.version("XForge v2.4.9");
     args.option("-f, --file <path>", "required, full path to the build file");
     args.option("-c, --colors", "produce colored output");
     args.option("-t, --time", "track build time");
