@@ -33,7 +33,7 @@ exports.make = async function(source, out, useTerser) {
 
 		CONSTANTS.LOGSUCCESS();
 	} catch (err) { 
-		CONSTANTS.HANDLE_BUILD_ERROR(err); 
+		return CONSTANTS.HANDLE_BUILD_ERROR(err); 
 	}
 }
 

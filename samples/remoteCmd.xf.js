@@ -15,6 +15,6 @@ exports.make = async function(host, user, password, hostkey, scriptPath) {
 
 		CONSTANTS.LOGSUCCESS();
 	} catch (err) { 
-		CONSTANTS.HANDLE_BUILD_ERROR(`Build failed with remote exit code: ${err.exitCode}, due to error: ${err.stderr}`); 
+		return CONSTANTS.HANDLE_BUILD_ERROR(`Build failed with remote exit code: ${err.exitCode}, due to error: ${err.stderr}`); 
 	}
 }

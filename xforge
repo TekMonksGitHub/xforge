@@ -35,7 +35,7 @@ module.exports.xforge = async function(inprocessArgs) {
 
         const timeStarted = Date.now();
         CONSTANTS.LOGINFO(`XForge starting build: ${fileToBuild}`);
-        try { await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); return CONSTANTS.EXITOK(); } 
+        try { const retCode = await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); return retCode!==undefined?retCode:CONSTANTS.EXITOK(); } 
         catch (err) { _printBuildTime(timeStarted); return CONSTANTS.HANDLE_BUILD_ERROR(err); }
     } else {args.outputHelp(t=>colors.red(t)); return CONSTANTS.EXITFAILED();}
 }
