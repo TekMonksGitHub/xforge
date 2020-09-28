@@ -18,13 +18,13 @@ module.exports.xforge = async function(inprocessArgs) {
     args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
     args.version("XForge v2.4.9");
     args.option("-f, --file <path>", "required, full path to the build file");
-    args.option("-c, --color", "produce colored output");
+    args.option("-c, --colors", "produce colored output");
     args.option("-t, --time", "track build time");
     args.option("-i, --incremental <value>", "true for incremental and false to force a full build");
     args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     if (inprocessArgs) {args = inprocessArgs; args.outputHelp =_=>CONSTANTS.LOGERROR("Bad arguments to XForge");} else args.parse(process.argv);
 
-    if (args.color) CONSTANTS.COLORED_OUT = true;
+    if (args.colors) CONSTANTS.COLORED_OUT = true;
 
     if (args.other) CONSTANTS.OTHER_ARGS = args.other;
 
