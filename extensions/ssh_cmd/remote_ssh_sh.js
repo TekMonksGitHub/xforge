@@ -38,8 +38,9 @@ exports.runRemoteSSHScript = (conf, remote_script, extra_params, stream, callbac
 function processExec(cmdProcessorArray, script, paramsArray, stream, callback) {
     const spawnArray = cmdProcessorArray.slice(0);
 
-    const paramsArrayCopy = []; paramsArray.forEach((element, i) => { paramsArrayCopy[i] = '"'+element+'"';});
-    let scriptCmd = '"'+script+'"' + " " + paramsArrayCopy.join(" ");
+    const quoter = process.platform === "win32" ? '"':"'";
+    const paramsArrayCopy = []; paramsArray.forEach((element, i) => { paramsArrayCopy[i] = quoter+element+quoter;});
+    let scriptCmd = quoter+script+quoter + " " + paramsArrayCopy.join(" ");
     scriptCmd = process.platform === "win32" ? '"'+scriptCmd+'"' : scriptCmd;
     spawnArray.push(scriptCmd);
     const shellProcess = spawn(spawnArray[0], spawnArray.slice(1), {windowsVerbatimArguments: true});
