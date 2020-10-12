@@ -28,6 +28,7 @@ exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams,
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
         remote_ssh.runRemoteSSHScript({user, password, host, hostkey}, shellScriptPath, scriptParams, stream, (err,stdout,stderr) => {
+            ticketing.releaseTicket();
             if (!err) resolve({exitCode:0, stdout, stderr});
             else reject({exitCode:err, stdout, stderr});
         });
