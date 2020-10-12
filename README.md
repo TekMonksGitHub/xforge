@@ -1,4 +1,4 @@
 # XForge
-Like make ... except if it was on steriods ;)
+Replaces make to kubernetes and everything in between ;)
 
 Documentation Link: https://github.com/TekMonksGitHub/xforge/wiki
