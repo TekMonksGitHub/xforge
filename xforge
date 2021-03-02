@@ -24,6 +24,8 @@ module.exports.xforge = async function(inprocessArgs) {
     args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     if (inprocessArgs) {args = inprocessArgs; args.outputHelp =_=>CONSTANTS.LOGERROR("Bad arguments to XForge");} else args.parse(process.argv);
 
+    if (args._optionValues) args = { ...args, ...args._optionValues };
+
     if (args.colors) CONSTANTS.COLORED_OUT = true;
 
     if (args.other) CONSTANTS.OTHER_ARGS = args.other;
