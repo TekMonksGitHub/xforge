@@ -15,6 +15,7 @@ global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
 const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total build time: ${Date.now() - timeStarted} milliseconds`); }
 
 module.exports.xforge = async function(inprocessArgs) {
+    args.storeOptionsAsProperties(); 
     args.description("XForge - (C) TekMonks\nJust like make, except if it was on steriods ;)")
     args.version("XForge v2.4.9");
     args.option("-f, --file <path>", "required, full path to the build file");
@@ -23,8 +24,6 @@ module.exports.xforge = async function(inprocessArgs) {
     args.option("-i, --incremental <value>", "true for incremental and false to force a full build");
     args.option("-o, --other <args>", "other arguments, passed to the build files", (otherArgs, other) => {other.push(otherArgs); return other;}, []);
     if (inprocessArgs) {args = inprocessArgs; args.outputHelp =_=>CONSTANTS.LOGERROR("Bad arguments to XForge");} else args.parse(process.argv);
-
-    if (args._optionValues) args = { ...args, ...args._optionValues };
 
     if (args.colors) CONSTANTS.COLORED_OUT = true;
 
@@ -39,7 +38,7 @@ module.exports.xforge = async function(inprocessArgs) {
         CONSTANTS.LOGINFO(`XForge starting build: ${fileToBuild}`);
         try { const retCode = await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); return retCode!==undefined?retCode:CONSTANTS.EXITOK(); } 
         catch (err) { _printBuildTime(timeStarted); return CONSTANTS.HANDLE_BUILD_ERROR(err); }
-    } else {args.outputHelp(t=>colors.red(t)); return CONSTANTS.EXITFAILED();}
+    } else {console.log(args.colors?colors.red(args.helpInformation()):args.helpInformation()); return CONSTANTS.EXITFAILED();}
 }
  
 function _resolvePath(file) {
