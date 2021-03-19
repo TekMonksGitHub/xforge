@@ -6,8 +6,9 @@
 
 const fs = require("fs");
 const path = require("path");
-let args = require("commander");
 const colors = require("colors");
+const {Command} = require("commander"); let args = new Command();
+
 
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
 global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
