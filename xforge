@@ -9,9 +9,8 @@ const path = require("path");
 const colors = require("colors");
 let args = new (require("commander").Command);
 
-
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
-global.CONF = require(`${CONSTANTS.ROOTDIR}/conf/xforge.json`);
+global.CONF = require(`${CONSTANTS.CONFDIR}/xforge.json`);
 
 const _printBuildTime = timeStarted => { if (args.time) CONSTANTS.LOGINFO(`Total build time: ${Date.now() - timeStarted} milliseconds`); }
 

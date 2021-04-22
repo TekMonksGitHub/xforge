@@ -33,6 +33,7 @@ exports.make = async function(source, out, useTerser) {
 
 		CONSTANTS.LOGSUCCESS();
 	} catch (err) { 
+        CONSTANTS.LOGHELP("Build command format: xforge -c -f jscompile.xf.js -o source_js_folder -o target_js_folder [-o terser]")
 		return CONSTANTS.HANDLE_BUILD_ERROR(err); 
 	}
 }
