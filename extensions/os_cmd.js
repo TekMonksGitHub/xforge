@@ -5,6 +5,7 @@
  * Runs OS commands
  */
 const {exec} = require("child_process");
+const {execSync} = require("child_process");
 const {Ticketing} = require(`${CONSTANTS.LIBDIR}/Ticketing.js`);
 
 exports.os_cmd = (cmd, stream = false) => {
@@ -34,3 +35,5 @@ exports.os_cmd = (cmd, stream = false) => {
         }
     }));
 }
+
+exports.os_cmd_sync = cmd => {try{ return {out: execSync(cmd).toString("utf8"), code: 0};} catch (err) {return {out: err.stdout.toString("utf8"), error: err.stderr.toString("utf8"), code: err.status};}}
