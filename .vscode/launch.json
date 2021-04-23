@@ -25,7 +25,7 @@
             "request": "launch",
             "name": "C/C++ Compiler Example",
             "program": "${workspaceFolder}/xforge",
-            "args": ["-c","-f", "${workspaceFolder}/samples/ccppcompile.xf.js", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/usr/local/Cellar/gcc/10.2.0_4/bin/gcc-10;/usr/local/Cellar/gcc/10.2.0_4/bin/g++-10"]
+            "args": ["-c","-f", "${workspaceFolder}/samples/ccppcompile.xf.js", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject/main.exe","-o", "/usr/local/Cellar/gcc/10.2.0_4/bin/gcc-10;/usr/local/Cellar/gcc/10.2.0_4/bin/g++-10", "ld -lc"]
         }
     ]
 }

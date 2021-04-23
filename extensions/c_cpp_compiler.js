@@ -40,7 +40,9 @@ exports.c_cpp_compile = (source_files, compiler_cmd, include_paths, output_direc
 }
 
 exports.c_cpp_link = (linker_cmd, object_files, out, isWindows) => {
-   const outOption = isWindows ? "/OUT:" : "-o"
+   if (utils.checkIncrementalSkip(out, object_files)) {CONSTANTS.LOGINFO(`${out} is newer than object file dependencies. Skipping linking.`); return Promise.resolve(); }
+
+   const outOption = isWindows ? "/OUT:" : "-o "
    const objFiles = object_files.join(" ");
 
    return os_cmd([linker_cmd, `${outOption}${out}`, objFiles].join(" "));
