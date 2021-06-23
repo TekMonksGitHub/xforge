@@ -1,4 +1,4 @@
 {
     "dependency_generator": "gcc -E -MM -c",
-    "deepDependencyAnalysis": true
+    "deepDependencyAnalysis": false
 }
