@@ -16,22 +16,22 @@ exports.os_cmd = (cmd, stream = false) => {
     CONSTANTS.LOGINFO(`[REQUEST]: ${cmd}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
-        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER}, (error, data, stderr) => {
+        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER, encoding : 'binary'}, (error, data, stderr) => {
             ticketing.releaseTicket();
             
             CONSTANTS.LOGEXEC(`[PID:${process.pid}] ${cmd}`);
 
-            if (data && !stream) CONSTANTS.LOGINFO(`[PID:${process.pid}] ${data}`);
-            if (stderr && error) CONSTANTS.LOGERROR(`[PID:${process.pid}] ${stderr}`);
-            else if (stderr && !stream) CONSTANTS.LOGWARN(`[PID:${process.pid}] ${stderr}`);
+            if (data && !stream) CONSTANTS.logInfo(process.pid, data);
+            if (stderr && error) CONSTANTS.logError(process.pid, stderr);
+            else if (stderr && !stream) CONSTANTS.logWarn(process.pid, stderr);
 
             if (error) reject(error);
             else resolve(data);
         });
 
         if (stream) {
-            osProcess.stdout.on("data", data => CONSTANTS.LOGINFO(`[PID:${process.pid}] ${data}`));
-            osProcess.stderr.on("data", data => CONSTANTS.LOGWARN(`[PID:${process.pid}] ${data}`));
+            osProcess.stdout.on("data", data => CONSTANTS.logInfo(process.pid, data));
+            osProcess.stderr.on("data", data => CONSTANTS.logWarn(process.pid, data));
         }
     }));
 }
