@@ -8,30 +8,32 @@ const {exec} = require("child_process");
 const {execSync} = require("child_process");
 const {Ticketing} = require(`${CONSTANTS.LIBDIR}/Ticketing.js`);
 
+const _toBuffer = (pid, data) => Buffer.concat([Buffer.from(`[PID:${pid}]`), Buffer.from(data, 'binary')]);
+
 exports.os_cmd = (cmd, stream = false) => {
     if (!CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"])
-        CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
+        CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhausted, waiting.");
     const ticketing = CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"];
 
     CONSTANTS.LOGINFO(`[REQUEST]: ${cmd}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
-        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER}, (error, data, stderr) => {
+        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER, encoding : 'binary'}, (error, data, stderr) => {
             ticketing.releaseTicket();
             
             CONSTANTS.LOGEXEC(`[PID:${process.pid}] ${cmd}`);
 
-            if (data && !stream) CONSTANTS.LOGINFO(`[PID:${process.pid}] ${data}`);
-            if (stderr && error) CONSTANTS.LOGERROR(`[PID:${process.pid}] ${stderr}`);
-            else if (stderr && !stream) CONSTANTS.LOGWARN(`[PID:${process.pid}] ${stderr}`);
+            if (data && !stream) CONSTANTS.LOGINFO(_toBuffer(process.pid, data), true);
+            if (stderr && error) CONSTANTS.LOGERROR(_toBuffer(process.pid, data), true);
+            else if (stderr && !stream) CONSTANTS.LOGWARN(_toBuffer(process.pid, data), true);
 
             if (error) reject(error);
             else resolve(data);
         });
 
         if (stream) {
-            osProcess.stdout.on("data", data => CONSTANTS.LOGINFO(`[PID:${process.pid}] ${data}`));
-            osProcess.stderr.on("data", data => CONSTANTS.LOGWARN(`[PID:${process.pid}] ${data}`));
+            osProcess.stdout.on("data", data => CONSTANTS.LOGINFO(_toBuffer(process.pid, data), true));
+            osProcess.stderr.on("data", data => CONSTANTS.LOGWARN(_toBuffer(process.pid, data), true));
         }
     }));
 }
