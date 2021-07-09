@@ -6,7 +6,6 @@
 
 const fs = require("fs");
 const path = require("path");
-const colors = require("colors");
 let args = new (require("commander").Command);
 
 global.CONSTANTS = require(`${__dirname}/lib/constants.js`);
@@ -38,7 +37,7 @@ module.exports.xforge = async function(inprocessArgs) {
         CONSTANTS.LOGINFO(`XForge starting build: ${fileToBuild}`);
         try { const retCode = await require(fileToBuild).make(...args.other); _printBuildTime(timeStarted); return retCode!==undefined?retCode:CONSTANTS.EXITOK(); } 
         catch (err) { _printBuildTime(timeStarted); return CONSTANTS.HANDLE_BUILD_ERROR(err); }
-    } else {console.log(args.colors?colors.red(args.helpInformation()):args.helpInformation()); return CONSTANTS.EXITFAILED();}
+    } else {CONSTANTS.LOGRED(args.helpInformation()); return CONSTANTS.EXITFAILED();}
 }
  
 function _resolvePath(file) {
