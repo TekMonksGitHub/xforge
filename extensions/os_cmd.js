@@ -24,8 +24,8 @@ exports.os_cmd = (cmd, stream = false) => {
             CONSTANTS.LOGEXEC(`[PID:${process.pid}] ${cmd}`);
 
             if (data && !stream) CONSTANTS.LOGINFO(_toBuffer(process.pid, data), true);
-            if (stderr && error) CONSTANTS.LOGERROR(_toBuffer(process.pid, data), true);
-            else if (stderr && !stream) CONSTANTS.LOGWARN(_toBuffer(process.pid, data), true);
+            if (stderr && error) CONSTANTS.LOGERROR(_toBuffer(process.pid, stderr), true);
+            else if (stderr && !stream) CONSTANTS.LOGWARN(_toBuffer(process.pid, stderr), true);
 
             if (error) reject(error);
             else resolve(data);
