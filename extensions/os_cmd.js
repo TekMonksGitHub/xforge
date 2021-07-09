@@ -8,7 +8,7 @@ const {exec} = require("child_process");
 const {execSync} = require("child_process");
 const {Ticketing} = require(`${CONSTANTS.LIBDIR}/Ticketing.js`);
 
-const _toBuffer = (pid, data) => Buffer.concat([Buffer.from(`[PID:${pid}]`), Buffer.from(data, 'binary')]);
+const _toBuffer = (pid, data) => Buffer.concat([Buffer.from(`[PID:${pid}]`), Buffer.from(data, "binary")]);
 
 exports.os_cmd = (cmd, stream = false) => {
     if (!CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"])
@@ -18,7 +18,7 @@ exports.os_cmd = (cmd, stream = false) => {
     CONSTANTS.LOGINFO(`[REQUEST]: ${cmd}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
-        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER, encoding : 'binary'}, (error, data, stderr) => {
+        let osProcess = exec(cmd, {maxBuffer: CONSTANTS.MAX_STDIO_BUFFER, encoding : "binary"}, (error, data, stderr) => {
             ticketing.releaseTicket();
             
             CONSTANTS.LOGEXEC(`[PID:${process.pid}] ${cmd}`);
