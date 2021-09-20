@@ -1,1 +1,1 @@
-@node xforge
+@node xforge %*
