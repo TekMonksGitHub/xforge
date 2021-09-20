@@ -15,7 +15,7 @@ exports.make = async function(webroot, out, filterPattern) {
         // find all static files and add to the list
         const allFiles = (await CONSTANTS.SHELL.ls("-Rl",webroot));
 
-        const cacheableFiles = (filterPattern ? allFiles.filter(fileStat=>fileStat.isFile() && (!fileStat.name.match(filterPattern))) : allFiles).map(fileStat => fileStat.name)
+        const cacheableFiles = allFiles.filter(fileStat=>fileStat.isFile() && (filterPattern?!fileStat.name.match(filterPattern):true)).map(fileStat => fileStat.name)
         await fspromises.writeFile(out, JSON.stringify(cacheableFiles, null, 4));
 
 		CONSTANTS.LOGSUCCESS();
