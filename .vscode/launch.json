@@ -4,6 +4,7 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+
         {
             "type": "node",
             "request": "attach",
@@ -16,16 +17,23 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Remote Command Example",
+            "name": "Remote command example",
             "program": "${workspaceFolder}/xforge",
             "args": ["-c","-f", "${workspaceFolder}/samples/remoteCmd.xf.js", "-o", "ip", "-o", "root", "-o", "password", "-o", "be:27:56:ec:df:b0:69:9d:1a:35:d0:9a:ed:37:51:9c", "-o", "${workspaceFolder}/samples/remoteCmd.sh", "-o", "~/"]
         },
         {
             "type": "node",
             "request": "launch",
-            "name": "C/C++ Compiler Example",
+            "name": "C/C++ compiler example",
             "program": "${workspaceFolder}/xforge",
-            "args": ["-c","-f", "${workspaceFolder}/samples/ccppcompile.xf.js", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject/main.exe","-o", "/usr/local/Cellar/gcc/10.2.0_4/bin/gcc-10;/usr/local/Cellar/gcc/10.2.0_4/bin/g++-10", "ld -lc"]
+            "args": ["-c","-f", "${workspaceFolder}/samples/ccppcompile.xf.js", "-o", "/Users/tekmonks/Documents/source/ccppsampleproject", "-o", "/Users/tekmonks/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject", "-o", "/Users/rvkapoor/Documents/source/ccppsampleproject/main.exe","-o", "/usr/local/Cellar/gcc/10.2.0_4/bin/gcc-10;/usr/local/Cellar/gcc/10.2.0_4/bin/g++-10", "ld -lc"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Gen cacheable files example",
+            "program": "${workspaceFolder}/xforge",
+            "args": ["-c","-f", "${workspaceFolder}/samples/genCacheableFilesList.xf.js", "-o", "${workspaceFolder}/../monkshu/frontend", "-o", "${workspaceFolder}/../monkshu/frontend/framework/conf/cachelist.json", "-o", "^server/*"]
         }
     ]
 }
