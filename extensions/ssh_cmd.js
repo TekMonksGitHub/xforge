@@ -21,7 +21,7 @@ const remote_ssh = require(`${CONSTANTS.EXTDIR}/ssh_cmd/remote_ssh_sh.js`);
  */
 exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams, stream = false) => {
     if (!CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"])
-        CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhaused, waiting.");
+        CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhausted, waiting.");
     const ticketing = CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"];
 
     CONSTANTS.LOGINFO(`[SSH_CMD]: ${user}@${host} -> ${scriptParams.join(" ")}`);
