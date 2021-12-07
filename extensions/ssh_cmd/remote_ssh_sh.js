@@ -24,7 +24,7 @@ const agentConf = {
  * @param {object} callback err = exitCode in case or error or null otherwise,stdout,stderr
  */
 exports.runRemoteSSHScript = (conf, remote_script, extra_params, stream, callback) => {
-    const script = path.normalize(`${__dirname}/ssh_cmd.${process.platform == "win32"?"bat":"sh"}`);
+    const script = path.normalize(`${__dirname}/ssh_cmd${(conf?.password)?"":"_with_key"}.${process.platform == "win32"?"bat":"sh"}`);
 
     expandExtraParams(extra_params, remote_script, (err, expanded_remote_script) => {
         if (err) {callback({"result":false, "err":err, "msg": err.toString()}); return;}
