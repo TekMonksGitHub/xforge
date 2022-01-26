@@ -30,7 +30,7 @@ exports.runRemoteSSHScript = (conf, remote_script, extra_params, stream, callbac
         if (err) {callback({"result":false, "err":err, "msg": err.toString()}); return;}
 
         processExec( agentConf["shellexecprefix_"+process.platform], script, 
-            [conf.user, conf.password, conf.hostkey, expanded_remote_script, conf.host], 
+            [conf.user, conf.password, conf.hostkey, expanded_remote_script, conf.host, conf.key], 
             stream, callback );
     });    
 }

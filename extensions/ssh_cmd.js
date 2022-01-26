@@ -19,7 +19,7 @@ const remote_ssh = require(`${CONSTANTS.EXTDIR}/ssh_cmd/remote_ssh_sh.js`);
  * @param {boolean} stream Whether or not to stream the output as it happens
  * @returns An object of the format {exitCode: The remote script exit code, stdout: Std out, stderr: Std err}
  */
-exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams, stream = false) => {
+exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams, stream = false, isPasswordKey = false) => {
     if (!CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"])
         CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"] = new Ticketing(CONSTANTS.MAX_PROCESSES, "Process pool exhausted, waiting.");
     const ticketing = CONSTANTS.OBJECT_STORE["ext.os_cmd.ticketing"];
@@ -27,7 +27,7 @@ exports.ssh_cmd = (host, user, password, hostkey, shellScriptPath, scriptParams,
     CONSTANTS.LOGINFO(`[SSH_CMD]: ${user}@${host} -> ${scriptParams.join(" ")}`);
 
     return new Promise((resolve, reject) => ticketing.getTicket(_=>{
-        remote_ssh.runRemoteSSHScript({user, password, host, hostkey}, shellScriptPath, scriptParams, stream, (err,stdout,stderr) => {
+        remote_ssh.runRemoteSSHScript({user, password:!isPasswordKey?password:undefined, host, hostkey, key:isPasswordKey?password:""}, shellScriptPath, scriptParams, stream, (err,stdout,stderr) => {
             ticketing.releaseTicket();
             if (!err) resolve({exitCode:0, stdout, stderr});
             else reject({exitCode:err, stdout, stderr});
