@@ -34,6 +34,13 @@
             "name": "Gen cacheable files example",
             "program": "${workspaceFolder}/xforge",
             "args": ["-c","-f", "${workspaceFolder}/samples/genCacheableFilesList.xf.js", "-o", "${workspaceFolder}/../monkshu/frontend", "-o", "${workspaceFolder}/../monkshu/frontend/framework/conf/cachelist.json", "-o", "^server/*"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Local command example",
+            "program": "${workspaceFolder}/xforge",
+            "args": ["-c","-f", "${workspaceFolder}/samples/execCmd.xf.js", "-o", "cmd.exe /c set"]
         }
     ]
 }
