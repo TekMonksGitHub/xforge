@@ -58,7 +58,7 @@ function processExec(cmdProcessorArray, script, paramsArray, stream, callback) {
     });
 
     shellProcess.on("exit", exitCode => {
-        if (stderr.trim() == "Access denied" && process.platform == "win32") exitCode = 1; // fix plink fake success issue on Windows
+        if (stderr.trim() == "Access is denied" && process.platform == "win32") exitCode = 1; // fix plink fake success issue on Windows
         callback(exitCode?exitCode:null, stdout, stderr)
     });
 }
