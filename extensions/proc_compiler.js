@@ -1,6 +1,6 @@
 /* 
  * (C) 2019 TekMonks. All rights reserved.
- * License: MIT - see enclosed LICENSE file.
+ * License: See enclosed LICENSE file.
  * 
  * Oracle Pro*C Compiler Class
  */

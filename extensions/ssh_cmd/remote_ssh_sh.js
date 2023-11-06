@@ -1,6 +1,8 @@
 /** 
  * remote_ssh_sh.js, Runs remote SSH scripts
  * 
+ * License: See enclosed LICENSE file.
+ * 
  * (C) 2018 TekMonks. All rights reserved.
  */
 const os = require("os");

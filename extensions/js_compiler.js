@@ -1,6 +1,6 @@
 /**
  * (C) 2019 TekMonks. All rights reserved.
- * License: MIT - see enclosed LICENSE file.
+ * License: See enclosed LICENSE file.
  * 
  * JS Compiler. Compilers supported are:
  * Google Closure Compiler
