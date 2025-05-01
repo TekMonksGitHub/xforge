@@ -41,6 +41,13 @@
             "name": "Local command example",
             "program": "${workspaceFolder}/xforge",
             "args": ["-c","-f", "${workspaceFolder}/samples/execCmd.xf.js", "-o", "cmd.exe /c set"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Local build file example",
+            "program": "${workspaceFolder}/xforge",
+            "args": ["-c","-f", "${workspaceFolder}/../monkshu/build/webbundle.xf.js", "-o", "cmd.exe /c set"]
         }
     ]
 }
