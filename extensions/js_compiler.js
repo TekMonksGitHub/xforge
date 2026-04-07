@@ -27,6 +27,8 @@ exports.js_compile = async (source_file, output_file, useTerser=false) => {
 
     const outDir = path.dirname(output_file); 
     if (!await existsAsync(outDir)) mkdirAsync(outDir, {recursive:true});
-    const cmd = useTerser?`${COMPILER_CMD_TERSER} "${source_file}" -c -m -o "${output_file}"`:`${COMPILER_CMD_GOOGLE} "${source_file}" --js_output_file "${output_file}"`;
+    const cmd = useTerser?`${COMPILER_CMD_TERSER} "${_escapeSpecialChars(source_file)}" -c -m -o "${_escapeSpecialChars(output_file)}"`:`${COMPILER_CMD_GOOGLE} "${_escapeSpecialChars(source_file)}" --js_output_file "${_escapeSpecialChars(output_file)}"`;
     return os_cmd(cmd);
 }
+
+const _escapeSpecialChars = string => string.replace(/[+?^${}()|[\]\\*]/g, '\\$&');
